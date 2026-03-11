@@ -1,0 +1,43 @@
+# ── Git ──────────────────────────────────────────
+.git
+.gitignore
+.github
+
+# ── Docker ───────────────────────────────────────
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# ── Env files ────────────────────────────────────
+.env*
+!.env.example
+
+# ── CI / Docs ────────────────────────────────────
+*.md
+.github
+.gitlab-ci.yml
+Jenkinsfile
+build-push.sh
+
+# ── IDE ──────────────────────────────────────────
+.vscode
+.idea
+*.swp
+
+# ── OS ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Python ───────────────────────────────────────
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+venv
+.venv
+env
+.pytest_cache
+.mypy_cache
+*.egg-info
+dist
+build
