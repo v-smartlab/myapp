@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # ── Stage 1: build virtualenv ─────────────────────────────────────
-FROM python:20-slim AS builder
+FROM python:3.12-slim AS builder
 WORKDIR /app
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -8,7 +8,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt && pip cache purge
 
 # ── Stage 2: runner ───────────────────────────────────────────────
-FROM python:20-slim AS runner
+FROM python:3.12-slim AS runner
 WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
