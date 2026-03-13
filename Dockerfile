@@ -1,10 +1,20 @@
 # syntax=docker/dockerfile:1
 # ── Stage 1: build virtualenv ─────────────────────────────────────
 FROM python:3.12-alpine3.23 AS builder
-#FROM python:3.12.4-alpine AS builder
 WORKDIR /app
 # update security packages
 RUN apk update && apk upgrade --no-cache
+
+RUN apk add --no-cache build-base wget
+
+# build zlib patched version
+RUN wget https://zlib.net/zlib-1.3.2.tar.gz \
+ && tar -xzf zlib-1.3.2.tar.gz \
+ && cd zlib-1.3.2 \
+ && ./configure \
+ && make \
+ && make install
+
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt .
@@ -13,7 +23,6 @@ RUN pip install --upgrade pip setuptools wheel \
 
 # ── Stage 2: runner ───────────────────────────────────────────────
 FROM python:3.12-alpine3.23 AS runner
-#FROM python:3.12.4-alpine AS runner
 WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
