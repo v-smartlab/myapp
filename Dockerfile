@@ -5,7 +5,7 @@ WORKDIR /app
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt && pip cache purge
+RUN pip install --upgrade pip --no-cache-dir -r requirements.txt && pip cache purge
 
 # ── Stage 2: runner ───────────────────────────────────────────────
 FROM python:3.12-alpine AS runner
