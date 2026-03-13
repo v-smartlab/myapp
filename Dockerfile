@@ -4,6 +4,8 @@ FROM python:3.12-alpine AS builder
 WORKDIR /app
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
+# update security packages
+RUN apk update && apk upgrade --no-cache
 COPY requirements.txt .
 RUN pip install --upgrade pip setuptools wheel \
  && pip install --default-timeout=100 --no-cache-dir -r requirements.txt
