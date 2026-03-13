@@ -2,10 +2,10 @@
 # ── Stage 1: build virtualenv ─────────────────────────────────────
 FROM python:3.12-alpine3.23 AS builder
 WORKDIR /app
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
 # update security packages
 RUN apk update && apk upgrade --no-cache
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt .
 RUN pip install --upgrade pip setuptools wheel \
  && pip install --default-timeout=100 --no-cache-dir -r requirements.txt
