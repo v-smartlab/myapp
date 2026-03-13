@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # ── Stage 1: build virtualenv ─────────────────────────────────────
-FROM python:3.12-alpine3.24 AS builder
+FROM python:3.12-alpine3.23 AS builder
 WORKDIR /app
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -9,7 +9,7 @@ RUN pip install --upgrade pip setuptools wheel \
  && pip install --default-timeout=100 --no-cache-dir -r requirements.txt
 
 # ── Stage 2: runner ───────────────────────────────────────────────
-FROM python:3.12-alpine3.24 AS runner
+FROM python:3.12-alpine3.23 AS runner
 WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
