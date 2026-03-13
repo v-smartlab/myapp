@@ -6,7 +6,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Hello from Docker!", "env": os.getenv("APP_ENV"), "ts": datetime.now().isoformat()}
+    return {"message": "Hello New Version from Docker!", "env": os.getenv("APP_ENV"), "ts": datetime.now().isoformat()}
 
 @app.get("/health")
 async def health():
