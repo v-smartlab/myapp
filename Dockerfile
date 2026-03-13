@@ -13,7 +13,9 @@ WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 COPY . .
-RUN useradd -m -u 1001 appuser && chown -R appuser:appuser /app
+#RUN useradd -m -u 1001 appuser && chown -R appuser:appuser /app
+RUN adduser -D -u 1001 appuser \
+    && chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 3000
