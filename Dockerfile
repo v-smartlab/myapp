@@ -5,7 +5,8 @@ WORKDIR /app
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt .
-RUN pip install --upgrade pip --no-cache-dir -r requirements.txt && pip cache purge
+RUN pip install --upgrade pip setuptools wheel \
+ && pip install --default-timeout=100 --no-cache-dir -r requirements.txt
 
 # ── Stage 2: runner ───────────────────────────────────────────────
 FROM python:3.12-alpine AS runner
