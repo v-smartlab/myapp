@@ -3,7 +3,8 @@
 FROM python:3.12-alpine3.23 AS builder
 WORKDIR /app
 # update security packages
-RUN apk update && apk upgrade --no-cache
+#RUN apk update && apk upgrade --no-cache
+RUN apk add --no-cache zlib
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt .
