@@ -3,9 +3,7 @@
 FROM python:3.12-alpine3.23 AS builder
 WORKDIR /app
 # update security packages
-RUN apk update && apk upgrade --no-cache zlib=1.3.2-r0
-# Verify installation
-RUN zlib-flate -v || echo "zlib installed"
+RUN apk update && apk upgrade --no-cache
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt .
